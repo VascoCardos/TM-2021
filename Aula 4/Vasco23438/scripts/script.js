@@ -6,7 +6,7 @@ var config = {
         default: 'arcade',
         arcade: {
             gravity: { y: 300 },
-            debug: false
+            debug: true
         }
     },
     scene: {
@@ -98,6 +98,9 @@ function create ()
 
     player1 = this.physics.add.sprite(50, 650, 'dude');
     player2 = this.physics.add.sprite(1450, 650, 'dude2');
+
+
+
     arvores.create(1200, 640, 'arvores').setScale(0.3).refreshBody();
     platforms.create(400, 768, 'ground').setScale(2).refreshBody();
     platforms.create(1200, 768, 'ground').setScale(2).refreshBody();
@@ -227,48 +230,6 @@ function create ()
 
     this.physics.add.collider(player1, player2, hitplayer, null, this);
 
-    function hitplayer(player1, player2)
-    {
-
-
-        if (score < 1){
-
-
-            this.physics.pause();
-
-            player1.setTint(0xff0000);
-
-            player1.anims.play('turn');
-
-            gameOver = true;
-        }
-        else{
-
-            player2.disableBody(true,true);
-            game.time.events.add(Phaser.Timer.SECOND * 4, this);
-            player2.enableBody(true,true);
-/*
-            player2 = this.physics.add.sprite(1450, 250, 'dude2');
-
-
-            player2.setBounce(0.2);
-            player2.setCollideWorldBounds(true);
-
-
-            this.physics.add.collider(player2, platforms);
-            this.physics.add.collider(player2, nuvem);
-            this.physics.add.collider(player2, arvores);
-
-*/
-
-            player1.setVelocityY(-600);
-
-
-            score -= 200;
-            scoreText.setText('Score: ' + score);
-        }
-    }
-
 
 
     function touchstar(player2, star)
@@ -324,6 +285,54 @@ function create ()
         }
     }
 
+}
+
+function hitplayer(player1, player2)
+{
+
+
+
+    if (score < 1){
+
+
+        this.physics.pause();
+
+        player1.setTint(0xff0000);
+
+        player1.anims.play('turn');
+
+        gameOver = true;
+    }
+    else{
+
+
+        player2.x = 1450;
+        player2.y = 250;
+
+/*
+        player2.disableBody(true,true);
+
+
+        player2 = this.physics.add.sprite(1450, 250, 'dude2');
+
+
+        player2.setBounce(0.2);
+        player2.setCollideWorldBounds(true);
+
+
+        this.physics.add.collider(player2, platforms);
+        this.physics.add.collider(player2, nuvem);
+        this.physics.add.collider(player2, arvores);
+        this.physics.add.collider(player1, player2, hitplayer, null, this);
+*/
+
+
+        player1.setVelocityY(-600);
+
+
+        score -= 200;
+        scoreText.setText('Score: ' + score);
+    }
 }
 
 
